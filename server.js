@@ -1,52 +1,71 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require("express");
+const app = express();
+const path = require("path");
+const Workout = require("./models/workout")
+
+const mongoose = require('mongoose');
+const port = process.env.PORT || 5000;
+const methodOverride = require("method-override")
+
 
 require('dotenv').config();
-// connect to the database with AFTER the config vars are processed
-require('./config/database');
 
-const indexRouter = require('./routes/index');
-const moviesRouter = require('./routes/movies');
-const reviewsRouter = require('./routes/reviews');
-const performersRouter = require('./routes/performers');
+const url = process.env.DATABASE_URL;
+mongoose.connect(url, { useNewUrlParser: true }
+);
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log("MongoDB database connection established successfully");
+})
 
 
-var app = express();
+app.set("views", path.join(__dirname, "views"))
+app.set("view engine", "ejs")
+app.use(express.urlencoded({extended: true}))
+app.use(methodOverride("_method"))
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.get("/", async (req, res) => {
+    const workouts = await Workout.find({})
+    console.log(workouts)
+    res.render("home", {workouts})
+})
 
-app.use('/', indexRouter);
-app.use('/movies', moviesRouter);
-// Mount these routers to root because not all 
-// paths for a related/nested resource begin the same
-app.use('/', reviewsRouter);
-app.use('/', performersRouter);
+app.get("/workout/:id", async (req, res) => {
+    const { id } = req.params;
+    const workouts = await Workout.findById(id)
+    res.render("detail", {workouts})
+})
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+app.get("/new", (req, res) => {
+    res.render("new")
+})
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.post("/workouts", async(req, res) => {
+    const newWorkout = new Workout(req.body);
+    await newWorkout.save();
+    res.redirect(`workout/${newWorkout._id}`)
+})
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+app.get("/workout/:id/edit", async (req, res) => {
+    const { id } = req.params;
+    const workout = await Workout.findById(id)
+    res.render("edit", {workout})
+})
 
-module.exports = app;
+app.put("/workout/:id", async (req, res) =>{
+    const { id } = req.params;
+    const workout = await Workout.findByIdAndUpdate(id, req.body, { runValidators: true })
+    res.redirect(`/workout/${workout._id}`)
+})
+
+app.delete("/workout/:id", async (req, res) => {
+    const { id } = req.params;
+    const deleteWorkout = await Workout.findByIdAndDelete(id)
+    res.redirect("/")
+})
+
+
+app.listen(3200, () => {
+    console.log("We are going on the port my friend");
+})
