@@ -16,7 +16,27 @@
                             <th>Exercise</th>
                             <th>Duration</th>
                             <th>Mood</th>
-
+                            <th>Action</th>
            
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
+                            <td><input style="background-color: transparent; width: 110px; border-radius: 1px; text-align: center;" type="text" id="username" name="username" placeholder="username"></td>
+                            <td><input style="background-color: transparent; width: 110px; border-radius: 1px; text-align: center;" class="input" type="text" id="exercise" name="exercise" placeholder="exercise"></td>
+                            <td><input style="background-color: transparent; width: 110px; border-radius: 1px; text-align: center;" class="input" type="number" id="duration" name="duration" placeholder="duration"></td>
+                            <td><input style="background-color: transparent; width: 110px; border-radius: 1px; text-align: center;" class="input" type="text" id="mood" name="mood" placeholder="mood"></td>
+                            <td>
+                                <button class="btn border-shadow update">
+                                    SUBMIT
+                                </button>
+                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+         
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>

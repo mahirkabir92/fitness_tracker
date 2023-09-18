@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const Workout = require("./models/workout")
+const Workout = require("./models/workout");
+var session = require('express-session');
+var passport = require('passport')
 
 const mongoose = require('mongoose');
-const port = process.env.PORT || 5000;
-const methodOverride = require("method-override")
+const port = process.env.PORT || 3000;
 
 
 require('dotenv').config();
+require('./config/passport')
 
 const url = process.env.DATABASE_URL;
 mongoose.connect(url, { useNewUrlParser: true }
@@ -22,8 +24,19 @@ connection.once('open', () => {
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 app.use(express.urlencoded({extended: true}))
-app.use(methodOverride("_method"))
 
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(function (req, res, next) {
+    res.locals.user = req.user;
+    next();
+  });
 
 app.get("/", async (req, res) => {
     const workouts = await Workout.find({})
@@ -66,6 +79,6 @@ app.delete("/workout/:id", async (req, res) => {
 })
 
 
-app.listen(3200, () => {
+app.listen(3000, () => {
     console.log("We are going on the port my friend");
 })
