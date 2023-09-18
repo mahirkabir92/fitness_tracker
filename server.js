@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const Workout = require("./models/workout");
-var session = require('express-session');
-var passport = require('passport')
+const session = require('express-session');
+const passport = require('passport');
 
 const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
@@ -30,6 +30,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
+
+// Initialize Passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -78,7 +80,26 @@ app.delete("/workout/:id", async (req, res) => {
     res.redirect("/")
 })
 
+// Google OAuth authentication route
+app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
-app.listen(3000, () => {
-    console.log("We are going on the port my friend");
+// Callback route after Google OAuth authentication
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  function (req, res) {
+    // Successful authentication, redirect or handle the response here
+    res.redirect("/"); // You can redirect to a different route or page
+  }
+);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
+
+
+app.listen(port, () => {
+    console.log("Server is running");
 })
