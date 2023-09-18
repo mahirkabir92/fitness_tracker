@@ -4,6 +4,7 @@ const path = require("path");
 const Workout = require("./models/workout");
 const session = require('express-session');
 const passport = require('passport');
+const methodOverride = require('method-override')
 
 const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
@@ -56,6 +57,9 @@ app.get("/new", (req, res) => {
     res.render("new")
 })
 
+// Use method-override middleware
+app.use(methodOverride('_method')); // This tells Express to look for "_method" query parameter
+
 app.post("/workouts", async(req, res) => {
     const newWorkout = new Workout(req.body);
     await newWorkout.save();
@@ -93,12 +97,31 @@ app.get(
   }
 );
 
+app.get("/logout", (req, res) => {
+    try {
+        req.logout((err) => {
+            if (err) {
+                console.error("Logout error:", err);
+                res.status(500).send("Logout failed");
+            } else {
+                res.redirect("/new"); // Redirect to the home page or any other desired page
+            }
+        });
+    } catch (error) {
+        console.error("Logout error:", error);
+        res.status(500).send("Logout failed");
+    }
+});
+
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
 });
 
+
+  
 
 app.listen(port, () => {
     console.log("Server is running");
