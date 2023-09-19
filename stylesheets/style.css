@@ -2,9 +2,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: auto;
     height: 34px;
   }
   
   .login img {
     height: 30px;
   }
+
+.transparent-input {
+    background-color: transparent;
+    width: 110px;
+    border-radius: 1px;
+    text-align: center;
+  }
+
+  .input {
+    background-color: transparent;
+    width: 110px;
+    border-radius: 1px;
+    text-align: center;
+}

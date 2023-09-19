@@ -1,62 +1,59 @@
-# Fitness Tracker App
-
 ## App Title
 
-This is a fitness tracker app that allows users to record and monitor their workouts, track progress, and achieve their fitness goals.
+Get Right Fitness
 
-## Screenshot(s)
-
-![Landing Page](screenshot-landing.png)
-*Include additional screenshots here if needed.*
-
-## Technologies Used
-
-- Frontend:
-  - HTML, CSS, JavaScript
-  - [React](https://reactjs.org/)
-  - [Redux](https://redux.js.org/)
-  - [React Router](https://reactrouter.com/)
-
-- Backend:
-  - Node.js
-  - Express.js
-  - [MongoDB](https://www.mongodb.com/)
-  - [Node.js](https://nodejs.org/)
-  - [Express.js](https://expressjs.com/)
+    This is a fitness tracker app that allows users to:
+    - Track Workouts
+    - Track Progress
+    - Track Mood
+    - Achieve their fitness goals
 
 ## Getting Started
 
-To access the deployed app, visit [Fitness Tracker App](https://example.com).
+    - https://fitness-tracker-396r.onrender.com      (DEPLOYMENT LINK)
+    - https://trello.com/b/ZcFC4PM0/fitness-tracker  (TRELLO LINK)
 
-For project planning and progress tracking, refer to our [Trello Board](https://trello.com/link-to-your-trello-board).
 
-## Next Steps
+## Technologies Used
+    - HTML
+    - CSS
+    - JavaScript
+    - EJS
+    - MongoDB
+    - Express
+    - Node
 
-Planned future enhancements (Icebox items):
+## User Stories
+    - As a user I want to be able to track my workouts
+    - As a user I want to add a new workout to my workout log
+    - As a user I want to log the duration of my workouts
+    - As a user I want to login and log out using my own profile
+    - As a user I want to edit my workouts
+    - As a user I want to delete workouts
+    - As a user I want to view my workouts
+    - As a user I want to log my mood after the workout
 
-- Implement user authentication for secure access.
-- Enhance workout routine creation with drag-and-drop functionality.
-- Integrate with fitness wearable devices for automatic workout tracking.
-- Add a nutrition and meal tracking feature.
-- Implement social sharing of workout achievements.
-- Create a mobile app version for on-the-go fitness tracking.
 
-As a user, you can track the project's progress and view the planning on our [Trello Board](https://trello.com/link-to-your-trello-board). On the Trello Board, you can see:
+## Icebox (Future)
 
-- **Icebox (Backlog)**: Features and tasks that are planned for future development.
-- **Current/MVP**: Essential features being actively developed and tested.
-- **Completed**: Features and tasks that have been successfully implemented and tested.
+    - Intergrate with wearable devices
+    - Create mobile version
+    - Add a calendar
+    - Add nutrition and meal tracking
+    - Add social sharing
 
-## Trello Board (User Stories)
 
-As a user, I want to be able to track the project's progress and view the planning on the Trello Board.
+## Wireframe
+- Main Page
+![Alt text](<images/![Alt text1](images:Wireframe.png).png>)
 
-- **Icebox (Backlog)**:
-  - As a user, I want to see a list of features and tasks that are planned for future development, so I can get an idea of what's coming next.
 
-- **Current/MVP**:
-  - As a user, I want to view essential features that are being actively developed and tested, so I can follow the app's immediate progress.
-  
-- **Completed**:
-  - As a user, I want to see features and tasks that have been successfully implemented and tested, so I can understand what's already done and available in the app.
-  
+- View Page
+![Alt text](<images/![Alt text4](images:Wireframe.png).png>)
+
+
+- Edit Page
+![Alt text](<images/![Alt text2](images:Wireframe.png).png>)
+
+- Home Page
+![Alt text](<images/![Alt text3](images:Wireframe.png).png>)

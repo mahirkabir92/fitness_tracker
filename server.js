@@ -1,3 +1,5 @@
+// Import required modules
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -13,6 +15,7 @@ const port = process.env.PORT || 3000;
 require('dotenv').config();
 require('./config/passport')
 
+// Connect to MongoDB database
 const url = process.env.DATABASE_URL;
 mongoose.connect(url, { useNewUrlParser: true }
 );
@@ -41,7 +44,9 @@ app.use(function (req, res, next) {
     next();
   });
 
+// Define routes
 app.get("/", async (req, res) => {
+    // Display all workouts
     const workouts = await Workout.find({})
     console.log(workouts)
     res.render("home", {workouts})
@@ -53,6 +58,7 @@ app.get("/workout/:id", async (req, res) => {
     res.render("detail", {workouts})
 })
 
+// Create new workouts
 app.get("/new", (req, res) => {
     res.render("new")
 })
@@ -60,6 +66,7 @@ app.get("/new", (req, res) => {
 // Use method-override middleware
 app.use(methodOverride('_method')); // This tells Express to look for "_method" query parameter
 
+// Create new workouts
 app.post("/workouts", async(req, res) => {
     const newWorkout = new Workout(req.body);
     await newWorkout.save();
