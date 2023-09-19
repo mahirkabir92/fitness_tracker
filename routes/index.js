@@ -1,6 +1,25 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const passport = require('passport');
+
+// Import your controllers
+const workoutController = require("../controllers/workoutController");
+const ensureLoggedIn = require("../middleware/ensureLoggedIn");
+
+// Define your routes
+router.get("/", workoutController.index);
+
+router.get("/new", ensureLoggedIn, workoutController.new);
+
+router.get("/:id", workoutController.show);
+
+router.post("/", ensureLoggedIn, workoutController.create);
+
+router.put("/:id", ensureLoggedIn, workoutController.update);
+
+router.get("/:id/edit", ensureLoggedIn, workoutController.edit);
+
+router.delete("/:id", ensureLoggedIn, workoutController.delete);
 
 router.get('/', function(req, res, next) {
   res.redirect('/new');
