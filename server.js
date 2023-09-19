@@ -111,7 +111,7 @@ app.get("/logout", (req, res) => {
                 console.error("Logout error:", err);
                 res.status(500).send("Logout failed");
             } else {
-                res.redirect("/new"); // Redirect to the home page or any other desired page
+                res.redirect("/new"); // Redirect to the home page 
             }
         });
     } catch (error) {
@@ -130,8 +130,8 @@ app.use((err, req, res, next) => {
 
   
 
-app.listen(port, () => {
-    console.log("Server is running" + port);
-})
+// app.listen(port, () => {
+//     console.log("Server is running" + port);
+// })
 
 module.exports = app;
