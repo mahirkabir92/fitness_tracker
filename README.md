@@ -1,4 +1,4 @@
-## App Title
+## Fitness Tracker
 
 Get Right Fitness
 
